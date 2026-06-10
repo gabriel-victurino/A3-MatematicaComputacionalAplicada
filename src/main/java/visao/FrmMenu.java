@@ -28,7 +28,7 @@ public class FrmMenu extends javax.swing.JFrame {
         setTitle("Calculadora de IR - 2026");
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
-        jLabel1.setText("Simulador para cálculo sobre imposto de renda 2026");
+        jLabel1.setText("Simulador para o cálculo do Imposto de Renda 2026");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setText("Quantos vínculos empregatícios você possui?");
@@ -197,7 +197,7 @@ public class FrmMenu extends javax.swing.JFrame {
             sb.append("  ").append(cabecalho).append("\n");
         }
         sb.append("       CÁLCULO DO IMPOSTO DE RENDA\n");
-        sb.append("          Nova Tabela 2025\n");
+        sb.append("                          TABELA 2026\n");
         sb.append(sep);
 
         sb.append("📋  BASE DE CÁLCULO\n");
@@ -215,7 +215,7 @@ public class FrmMenu extends javax.swing.JFrame {
         }
         sb.append("\n");
 
-        sb.append("🧮  CÁLCULO DO IMPOSTO\n");
+        sb.append("📱  CÁLCULO DO IMPOSTO\n");
         sb.append(sep);
 
         if (r.getAliquota() == 0 && r.getRedutor() == 0) {
@@ -230,7 +230,7 @@ public class FrmMenu extends javax.swing.JFrame {
                 sb.append(String.format("  (=) Imposto após tabela:      %s\n", fmt(r.getImpostoSemRedutor())));
             }
             if (r.getRedutor() > 0) {
-                sb.append(String.format("  (-) Redutor nova lei (2025):  %s\n", fmt(r.getRedutor())));
+                sb.append(String.format("  (-) Redutor nova lei (2026):  %s\n", fmt(r.getRedutor())));
                 sb.append(String.format("      (salário bruto ≤ R$ 5.000 → isenção total;\n"));
                 sb.append(String.format("       entre R$ 5.001 e R$ 7.000 → isenção parcial)\n"));
             } else if (r.getSalarioBruto() <= 5000) {

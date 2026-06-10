@@ -7,16 +7,16 @@ public class Calculo {
 
     // ── Tabela progressiva 2025 (mensal) ────────────────────────────────────
     // Faixa 1: até R$ 2.259,20            → isento
-    // Faixa 2: R$ 2.259,21 – R$ 2.826,65 → 7,5%   parcela R$  169,44
-    // Faixa 3: R$ 2.826,66 – R$ 3.751,05 → 15%    parcela R$  381,44
-    // Faixa 4: R$ 3.751,06 – R$ 4.664,68 → 22,5%  parcela R$  662,77
-    // Faixa 5: acima de R$ 4.664,68       → 27,5%  parcela R$  896,00
+    // Faixa 2: R$ 2.259,21 – R$ 2.826,65 → 7,5%   parcela R$  182,16
+    // Faixa 3: R$ 2.826,66 – R$ 3.751,05 → 15%    parcela R$  394,16
+    // Faixa 4: R$ 3.751,06 – R$ 4.664,68 → 22,5%  parcela R$  675,49
+    // Faixa 5: acima de R$ 4.664,68      → 27,5%  parcela R$  908,73
     //
     // Isenção total garantida pela nova lei para salário bruto até R$ 5.000,00
     // via redutor progressivo (zerando o imposto em toda essa faixa).
     // ────────────────────────────────────────────────────────────────────────
 
-    private static final double DESCONTO_SIMPLIFICADO = 528.00; // mensal 2025
+    private static final double DESCONTO_SIMPLIFICADO = 607.20; // mensal 2025
     private static final double LIMITE_ISENCAO_BRUTO  = 5_000.00;
 
     // Múltiplos empregos
@@ -67,19 +67,19 @@ public class Calculo {
             faixa   = "Isento — base até R$ 2.259,20";
             aliquota = 0;
         } else if (valorBase <= 2826.65) {
-            impostoTabela = (valorBase * 0.075) - 169.44;
+            impostoTabela = (valorBase * 0.075) - 182.16;
             faixa   = "7,5% — base entre R$ 2.259,21 e R$ 2.826,65";
             aliquota = 7.5;
         } else if (valorBase <= 3751.05) {
-            impostoTabela = (valorBase * 0.15) - 381.44;
+            impostoTabela = (valorBase * 0.15) - 394.16;
             faixa   = "15% — base entre R$ 2.826,66 e R$ 3.751,05";
             aliquota = 15;
         } else if (valorBase <= 4664.68) {
-            impostoTabela = (valorBase * 0.225) - 662.77;
+            impostoTabela = (valorBase * 0.225) - 675.49;
             faixa   = "22,5% — base entre R$ 3.751,06 e R$ 4.664,68";
             aliquota = 22.5;
         } else {
-            impostoTabela = (valorBase * 0.275) - 896.00;
+            impostoTabela = (valorBase * 0.275) - 908.73;
             faixa   = "27,5% — base acima de R$ 4.664,68";
             aliquota = 27.5;
         }
@@ -105,12 +105,11 @@ public class Calculo {
         if (salarioBruto <= LIMITE_ISENCAO_BRUTO) {
             // Zera totalmente o imposto
             return Math.max(impostoTabela, 0);
-        } else if (salarioBruto <= 7_000.00) {
+        } else if (salarioBruto <= 7_350.00) {
             // Redutor decresce de forma linear de "imposto pleno em 5.000"
             // até zero em 7.000, garantindo progressividade suave
-            double impostoEm5000 = calcularImpostoTabela(5_000.00);
-            double proporcao = (7_000.00 - salarioBruto) / (7_000.00 - 5_000.00);
-            return impostoEm5000 * proporcao;
+            double proporcao = 978.62 - (0.133145 * salarioBruto);
+            return proporcao;
         }
         return 0;
     }
@@ -120,10 +119,10 @@ public class Calculo {
         double base = salarioBruto - DESCONTO_SIMPLIFICADO;
         if (base <= 0)       return 0;
         if (base <= 2259.20) return 0;
-        if (base <= 2826.65) return Math.max((base * 0.075) - 169.44, 0);
-        if (base <= 3751.05) return Math.max((base * 0.15)  - 381.44, 0);
-        if (base <= 4664.68) return Math.max((base * 0.225) - 662.77, 0);
-        return Math.max((base * 0.275) - 896.00, 0);
+        if (base <= 2826.65) return Math.max((base * 0.075) - 182.16, 0);
+        if (base <= 3751.05) return Math.max((base * 0.15)  - 394.16, 0);
+        if (base <= 4664.68) return Math.max((base * 0.225) - 675.49, 0);
+        return Math.max((base * 0.275) - 908.73, 0);
     }
 
     // ── Cálculo consolidado para múltiplos empregos ──────────────────────────

@@ -62,9 +62,9 @@ public class Calculo {
         String faixa;
         double aliquota;
 
-        if (valorBase <= 2259.20) {
+        if (valorBase <= 2428.80) {
             impostoTabela = 0;
-            faixa   = "Isento — base até R$ 2.259,20";
+            faixa   = "Isento — base até R$ 2.428,80";
             aliquota = 0;
         } else if (valorBase <= 2826.65) {
             impostoTabela = (valorBase * 0.075) - 182.16;
